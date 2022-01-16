@@ -1,14 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const App = () => {
-    const title: string = 'TypeScript React !!'
-    return (
-        <h1>{title}</h1>
-    )
-}
+import Test from './Test';
 
 ReactDOM.render(
-    <App />,
+    <Test />,
     document.getElementById('app')
 )
