@@ -1,9 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Router from "./router";
+import {QueryClient, QueryClientProvider} from "react-query"
 
-import Test from './Test';
+const App = ()=>{
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                retry: false
+            },
+            mutations: {
+                retry: false
+            }
+        }
+    })
 
-ReactDOM.render(
-    <Test />,
-    document.getElementById('app')
-)
+    return(
+        <QueryClientProvider client={queryClient}>
+        <Router />
+        </QueryClientProvider>
+    )
+}
+
+export default App

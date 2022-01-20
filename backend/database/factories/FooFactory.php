@@ -11,7 +11,7 @@ class FooFactory extends Factory
     {
         return [
             'title'=> $this->faker->realText(rand(10, 15)),
-            'is_done'=> $this->faker->boolean(10),
+            'is_done'=> $this->faker->boolean(1),
             'body'=> $this->faker->realText(rand(30, 40)),
             'created_at'=>now(),
             'updated_at'=>now()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorefooRequest;
 use App\Http\Requests\UpdatefooRequest;
+use App\Http\Requests\FooRequest;
 use App\Models\foo;
 
 class FooController extends Controller
@@ -15,6 +16,7 @@ class FooController extends Controller
      */
     public function index()
     {
+        return [];
         return Foo::OrderByDesc('id')->get();
     }
 
@@ -32,11 +34,14 @@ class FooController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorefooRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StorefooRequest $request)
+    public function store(FooRequest $request)
     {
-        //
+        $foo = Foo::create($request->all());
+        return $foo
+        ? response()->json($foo, 201)
+        : response()->json([], 500);
     }
 
     /**
@@ -68,9 +73,13 @@ class FooController extends Controller
      * @param  \App\Models\foo  $foo
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatefooRequest $request, foo $foo)
+    public function update(FooRequest $request, Foo $foo)
     {
-        //
+        $foo->title = $request->title;
+
+        return $foo->update()
+            ? response()->json($foo)
+            : response()->json([], 500);
     }
 
     /**
@@ -81,6 +90,8 @@ class FooController extends Controller
      */
     public function destroy(foo $foo)
     {
-        //
+        return $foo->delete()
+        ? response()->json($foo)
+        : response()->json([], 500);
     }
 }
