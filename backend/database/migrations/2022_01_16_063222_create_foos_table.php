@@ -17,6 +17,7 @@ class CreateFoosTable extends Migration
             $table->id();
             $table->string('title');
             $table->boolean('is_done')->default(0);
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

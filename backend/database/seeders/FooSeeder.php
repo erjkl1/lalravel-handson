@@ -14,6 +14,6 @@ class FooSeeder extends Seeder
      */
     public function run()
     {
-        Foo::factory()->count(10)->create();
+        Foo::factory()->count(20)->create();
     }
 }

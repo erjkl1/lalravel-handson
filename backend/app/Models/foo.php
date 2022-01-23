@@ -9,10 +9,11 @@ class foo extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title','is_done','body'
+        'title','is_done','body','user_id'
     ];
 
     protected $casts = [
-        'is_done' => 'bool'
+        'is_done' => 'bool',
+        'user_id' => 'int'
     ];
 }

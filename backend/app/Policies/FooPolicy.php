@@ -10,6 +10,14 @@ class FooPolicy
 {
     use HandlesAuthorization;
 
+    public function checkUser(User $user, Foo $foo)
+    {
+        if ($user->id === $foo->user_id) {
+            return true;
+        }
+    }
+
+
     /**
      * Determine whether the user can view any models.
      *

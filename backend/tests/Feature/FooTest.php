@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Foo;
+use App\Models\User;
 
 class FooTest extends TestCase
 {
@@ -14,6 +15,18 @@ class FooTest extends TestCase
      *
      * @return void
      * @test
+     */
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+    }
+
+    /**
+     *
      */
     public function 登録することができる()
     {

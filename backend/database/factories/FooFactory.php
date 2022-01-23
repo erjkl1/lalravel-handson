@@ -9,10 +9,12 @@ class FooFactory extends Factory
 {
     public function definition()
     {
+        $user_id = $this->faker->numberBetween(1, 3);
         return [
-            'title'=> $this->faker->realText(rand(10, 15)),
-            'is_done'=> $this->faker->boolean(1),
+            'title'=> $user_id.':'.$this->faker->realText(rand(10, 15)),
+            'is_done'=> $this->faker->boolean(50),
             'body'=> $this->faker->realText(rand(30, 40)),
+            'user_id' => $user_id,
             'created_at'=>now(),
             'updated_at'=>now()
             //

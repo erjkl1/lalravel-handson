@@ -6,9 +6,18 @@ use App\Http\Requests\StorefooRequest;
 use App\Http\Requests\UpdatefooRequest;
 use App\Http\Requests\FooRequest;
 use App\Models\foo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FooController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:checkUser,foo')->only(
+            ['update','destory']
+        );
+    }
+
     /**
      *FOOを降順で返す
      *
@@ -16,8 +25,8 @@ class FooController extends Controller
      */
     public function index()
     {
-        return [];
-        return Foo::OrderByDesc('id')->get();
+        // return [];
+        return Foo::where('user_id', Auth::id())->OrderByDesc('id')->get();
     }
 
     /**
@@ -38,6 +47,11 @@ class FooController extends Controller
      */
     public function store(FooRequest $request)
     {
+        $request->merge(
+            [
+            'user_id' => Auth::id()
+            ]
+        );
         $foo = Foo::create($request->all());
         return $foo
         ? response()->json($foo, 201)
@@ -77,6 +91,8 @@ class FooController extends Controller
     {
         $foo->title = $request->title;
 
+        // return $foo;
+
         return $foo->update()
             ? response()->json($foo)
             : response()->json([], 500);
@@ -93,5 +109,20 @@ class FooController extends Controller
         return $foo->delete()
         ? response()->json($foo)
         : response()->json([], 500);
+    }
+    /**
+     * is_doneの更新
+     *
+     * @param  Foo      $task
+     * @param  \Request $request
+     * @return void
+     */
+    public function updateDone(Foo $foo, Request $request)
+    {
+        $foo->is_done = $request->is_done;
+
+        return $foo->update()
+            ? response()->json($foo)
+            : response()->json([], 500);
     }
 }

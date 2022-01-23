@@ -13,9 +13,12 @@ class AddBodyColumnToFoos extends Migration
      */
     public function up()
     {
-        Schema::table('foos', function (Blueprint $table) {
-            $table->string('body', 254);
-        });
+        Schema::table(
+            'foos',
+            function (Blueprint $table) {
+                $table->string('body', 255)->default('default');
+            }
+        );
     }
 
     /**
